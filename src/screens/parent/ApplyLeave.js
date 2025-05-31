@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Card, Modal, Portal, Text, TextInput, Title, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLanguage } from '../../i18n/LanguageContext';
 import theme from "../../constants/Theme"
 const ApplyLeave = ({ navigation, route }) => {
@@ -114,7 +114,9 @@ const ApplyLeave = ({ navigation, route }) => {
 
         <Button
           mode="outlined"
-          icon="camera"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="camera" size={size} color={color} />
+          )}
           onPress={() => {
             // Handle camera capture
             setAttachmentModalVisible(false);
@@ -126,7 +128,9 @@ const ApplyLeave = ({ navigation, route }) => {
 
         <Button
           mode="outlined"
-          icon="image"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="image" size={size} color={color} />
+          )}
           onPress={() => {
             // Handle gallery selection
             setAttachmentModalVisible(false);
@@ -138,7 +142,9 @@ const ApplyLeave = ({ navigation, route }) => {
 
         <Button
           mode="outlined"
-          icon="file"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="file" size={size} color={color} />
+          )}
           onPress={() => {
             // Handle document selection
             setAttachmentModalVisible(false);
@@ -150,6 +156,9 @@ const ApplyLeave = ({ navigation, route }) => {
 
         <Button
           mode="contained"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="close" size={size} color={color} />
+          )}
           onPress={() => setAttachmentModalVisible(false)}
           style={styles.modalButton}
         >
@@ -164,19 +173,31 @@ const ApplyLeave = ({ navigation, route }) => {
       <Card.Content>
         <Title>Leave Application Guidelines</Title>
         <View style={styles.guideline}>
-          <Icon name="information" size={20} color={theme.Colors.primary} />
+          <MaterialCommunityIcons 
+            name="information" 
+            size={20} 
+            color={theme.Colors.primary} 
+          />
           <Text style={styles.guidelineText}>
             Submit application at least 2 days in advance
           </Text>
         </View>
         <View style={styles.guideline}>
-          <Icon name="information" size={20} color={theme.Colors.primary} />
+          <MaterialCommunityIcons 
+            name="information" 
+            size={20} 
+            color={theme.Colors.primary} 
+          />
           <Text style={styles.guidelineText}>
             Attach supporting documents for medical leave
           </Text>
         </View>
         <View style={styles.guideline}>
-          <Icon name="information" size={20} color={theme.Colors.primary} />
+          <MaterialCommunityIcons 
+            name="information" 
+            size={20} 
+            color={theme.Colors.primary} 
+          />
           <Text style={styles.guidelineText}>
             Maximum 3 days leave without documents
           </Text>

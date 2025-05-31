@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
-import { Button, Card, DataTable, Text, Title, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button, Card, DataTable, Text, Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLanguage } from '../../i18n/LanguageContext';
 import theme from "../../constants/Theme"
+
 const ParentAttendance = ({ navigation }) => {
 
   const { translations } = useLanguage();
@@ -116,7 +117,7 @@ const ParentAttendance = ({ navigation }) => {
                 <DataTable.Cell>{record.date}</DataTable.Cell>
                 <DataTable.Cell>
                   <View style={styles.statusContainer}>
-                    <Icon
+                    <MaterialCommunityIcons
                       name={
                         record.status === 'present'
                           ? 'check-circle'
@@ -127,10 +128,10 @@ const ParentAttendance = ({ navigation }) => {
                       size={20}
                       color={
                         record.status === 'present'
-                          ? 'green'
+                          ? theme.Colors.success
                           : record.status === 'absent'
-                          ? 'red'
-                          : 'orange'
+                          ? theme.Colors.error
+                          : theme.Colors.warning
                       }
                     />
                     <Text style={styles.statusText}>
@@ -152,7 +153,9 @@ const ParentAttendance = ({ navigation }) => {
         <Title>Leave Management</Title>
         <Button
           mode="contained"
-          icon="plus"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="plus" size={size} color={color} />
+          )}
           onPress={() => navigation.navigate('ApplyLeave')}
           style={styles.leaveButton}
         >
@@ -160,7 +163,9 @@ const ParentAttendance = ({ navigation }) => {
         </Button>
         <Button
           mode="outlined"
-          icon="history"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="history" size={size} color={color} />
+          )}
           onPress={() => navigation.navigate('LeaveHistory')}
           style={styles.leaveButton}
         >

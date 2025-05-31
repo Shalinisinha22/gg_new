@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "Goal",
-    "slug": "gg",
+    "slug": "goal-weirpztmkdbn0kjozny85",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-     "splash": {
+    "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#1dbf73"
@@ -21,12 +21,17 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.shalinisinha21.goalweirpztmkdbn0kjozny85"
     },
-  
- 
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "82f8d061-ae1a-4328-a074-a05b71ad8ea5"
+      }
+    },
+    "owner": "shalinisinha21"
   }
 }

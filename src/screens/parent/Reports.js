@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
-import { Button, Card, Modal, Paragraph, Portal, Text, Title, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button, Card, Modal, Paragraph, Portal, Text, Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLanguage } from '../../i18n/LanguageContext';
-import theme from "../../constants/Theme"
+import theme from "../../constants/Theme";
+
 const ParentReports = ({ navigation }) => {
 
   const { translations } = useLanguage();
@@ -81,7 +82,7 @@ const ParentReports = ({ navigation }) => {
         <Card.Content>
           <Title>Overall Performance</Title>
           <View style={styles.scoreContainer}>
-            <Icon
+            <MaterialCommunityIcons
               name="school"
               size={48}
               color={theme.Colors.primary}
@@ -114,7 +115,7 @@ const ParentReports = ({ navigation }) => {
               <Title>{subject.name}</Title>
               <View style={styles.subjectScoreContainer}>
                 <Title style={styles.subjectScore}>{subject.score}%</Title>
-                <Icon
+                <MaterialCommunityIcons
                   name="chevron-right"
                   size={24}
                   color={theme.Colors.primary}
@@ -175,6 +176,13 @@ const ParentReports = ({ navigation }) => {
 
           <Button
             mode="contained"
+            icon={({ size, color }) => (
+              <MaterialCommunityIcons 
+                name="close" 
+                size={size} 
+                color={color} 
+              />
+            )}
             onPress={() => setDetailModalVisible(false)}
             style={styles.closeButton}
           >

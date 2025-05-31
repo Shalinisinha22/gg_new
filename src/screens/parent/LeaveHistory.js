@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Card, Chip, Modal, Paragraph, Portal, Text, Title, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button, Card, Chip, Modal, Paragraph, Portal, Text, Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLanguage } from '../../i18n/LanguageContext';
-import theme from "../../constants/Theme"
+import theme from "../../constants/Theme";
+
 const LeaveHistory = ({ navigation }) => {
 
   const { translations } = useLanguage();
@@ -126,7 +127,11 @@ const LeaveHistory = ({ navigation }) => {
 
               {leave.documents.length > 0 && (
                 <View style={styles.attachments}>
-                  <Icon name="paperclip" size={16} color={theme.Colors.primary} />
+                  <MaterialCommunityIcons 
+                    name="paperclip" 
+                    size={16} 
+                    color={theme.Colors.primary} 
+                  />
                   <Text style={styles.attachmentText}>
                     {leave.documents.length} attachment(s)
                   </Text>
@@ -198,7 +203,13 @@ const LeaveHistory = ({ navigation }) => {
                   <Button
                     key={index}
                     mode="outlined"
-                    icon="file-document"
+                    icon={({ size, color }) => (
+                      <MaterialCommunityIcons 
+                        name="file-document" 
+                        size={size} 
+                        color={color} 
+                      />
+                    )}
                     onPress={() => {
                       // Handle document viewing
                     }}
@@ -213,6 +224,13 @@ const LeaveHistory = ({ navigation }) => {
 
           <Button
             mode="contained"
+            icon={({ size, color }) => (
+              <MaterialCommunityIcons 
+                name="close" 
+                size={size} 
+                color={color} 
+              />
+            )}
             onPress={() => setDetailModalVisible(false)}
             style={styles.closeButton}
           >

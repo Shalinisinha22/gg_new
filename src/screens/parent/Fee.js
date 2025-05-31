@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Card, DataTable, Modal, Paragraph, Portal, Text, Title, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button, Card, DataTable, Modal, Paragraph, Portal, Text, Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLanguage } from '../../i18n/LanguageContext';
-import theme from "../../constants/Theme"
-const ParentFee = ({ navigation }) => {
+import theme from "../../constants/Theme";
 
+const ParentFee = ({ navigation }) => {
   const { translations } = useLanguage();
   const [selectedChild, setSelectedChild] = useState(0);
   const [paymentModalVisible, setPaymentModalVisible] = useState(false);
@@ -75,7 +75,9 @@ const ParentFee = ({ navigation }) => {
           {child.currentDue > 0 && (
             <Button
               mode="contained"
-              icon="cash"
+              icon={({ size, color }) => (
+                <MaterialCommunityIcons name="cash" size={size} color={color} />
+              )}
               onPress={() => setPaymentModalVisible(true)}
               style={styles.payButton}
             >
@@ -107,12 +109,15 @@ const ParentFee = ({ navigation }) => {
                 <DataTable.Cell numeric>₹{payment.amount}</DataTable.Cell>
                 <DataTable.Cell>
                   <View style={styles.statusContainer}>
-                    <Icon
+                    <MaterialCommunityIcons
                       name={payment.status === 'paid' ? 'check-circle' : 'clock'}
                       size={20}
-                      color={payment.status === 'paid' ? 'green' : 'orange'}
+                      color={payment.status === 'paid' ? theme.Colors.success : theme.Colors.warning}
                     />
-                    <Text style={styles.statusText}>
+                    <Text style={[
+                      styles.statusText,
+                      { color: payment.status === 'paid' ? theme.Colors.success : theme.Colors.warning }
+                    ]}>
                       {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
                     </Text>
                   </View>
@@ -125,7 +130,11 @@ const ParentFee = ({ navigation }) => {
                       // Handle receipt download
                     }}
                   >
-                    <Icon name="download" size={20} />
+                    <MaterialCommunityIcons 
+                      name="download" 
+                      size={20} 
+                      color={theme.Colors.primary}
+                    />
                   </Button>
                 </DataTable.Cell>
               </DataTable.Row>
@@ -145,43 +154,30 @@ const ParentFee = ({ navigation }) => {
       >
         <Title style={styles.modalTitle}>Choose Payment Method</Title>
         <View style={styles.paymentMethods}>
-          <Card
-            style={[styles.paymentMethod, selectedPaymentMethod === 'upi' && styles.selectedMethod]}
-            onPress={() => setSelectedPaymentMethod('upi')}
-          >
-            <Card.Content style={styles.paymentMethodContent}>
-              <Icon name="qrcode" size={32} color={theme.Colors.primary} />
-              <Paragraph>UPI</Paragraph>
-            </Card.Content>
-          </Card>
-
-          <Card
-            style={[
-              styles.paymentMethod,
-              selectedPaymentMethod === 'card' && styles.selectedMethod,
-            ]}
-            onPress={() => setSelectedPaymentMethod('card')}
-          >
-            <Card.Content style={styles.paymentMethodContent}>
-              <Icon name="credit-card" size={32} color={theme.Colors.primary} />
-              <Paragraph>Card</Paragraph>
-            </Card.Content>
-          </Card>
-
-          <Card
-            style={[
-              styles.paymentMethod,
-              selectedPaymentMethod === 'netbanking' && styles.selectedMethod,
-            ]}
-            onPress={() => setSelectedPaymentMethod('netbanking')}
-          >
-            <Card.Content style={styles.paymentMethodContent}>
-              <Icon name="bank" size={32} color={theme.Colors.primary} />
-              <Paragraph>Net Banking</Paragraph>
-            </Card.Content>
-          </Card>
+          {[
+            { id: 'upi', icon: 'qrcode', label: 'UPI' },
+            { id: 'card', icon: 'credit-card', label: 'Card' },
+            { id: 'netbanking', icon: 'bank', label: 'Net Banking' },
+          ].map((method) => (
+            <Card
+              key={method.id}
+              style={[
+                styles.paymentMethod,
+                selectedPaymentMethod === method.id && styles.selectedMethod,
+              ]}
+              onPress={() => setSelectedPaymentMethod(method.id)}
+            >
+              <Card.Content style={styles.paymentMethodContent}>
+                <MaterialCommunityIcons
+                  name={method.icon}
+                  size={32}
+                  color={theme.Colors.primary}
+                />
+                <Paragraph>{method.label}</Paragraph>
+              </Card.Content>
+            </Card>
+          ))}
         </View>
-
         <Button
           mode="contained"
           disabled={!selectedPaymentMethod}

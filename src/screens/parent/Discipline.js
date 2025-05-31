@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Card, Chip, Modal, Paragraph, Portal, Text, TextInput, Title, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button, Card, Chip, Modal, Paragraph, Portal, Text, TextInput, Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLanguage } from '../../i18n/LanguageContext';
-import theme from "../../constants/Theme"
+import theme from "../../constants/Theme";
+
 const ParentDiscipline = () => {
 
   const { translations } = useLanguage();
@@ -101,7 +102,7 @@ const ParentDiscipline = () => {
               </View>
 
               <View style={styles.incidentType}>
-                <Icon
+                <MaterialCommunityIcons
                   name={incident.type === 'Behavioral' ? 'account-alert' : 'book-alert'}
                   size={24}
                   color={theme.Colors.primary}
@@ -113,18 +114,16 @@ const ParentDiscipline = () => {
               <Paragraph style={styles.reportedBy}>Reported by: {incident.reportedBy}</Paragraph>
 
               <View style={styles.statusContainer}>
-                <Icon
-                  name={
-                    incident.status === 'Acknowledged' ? 'check-circle' : 'clock-outline'
-                  }
+                <MaterialCommunityIcons
+                  name={incident.status === 'Acknowledged' ? 'check-circle' : 'clock-outline'}
                   size={20}
-                  color={incident.status === 'Acknowledged' ? 'green' : 'orange'}
+                  color={incident.status === 'Acknowledged' ? theme.Colors.success : theme.Colors.warning}
                 />
                 <Text
                   style={[
                     styles.statusText,
                     {
-                      color: incident.status === 'Acknowledged' ? 'green' : 'orange',
+                      color: incident.status === 'Acknowledged' ? theme.Colors.success : theme.Colors.warning,
                     },
                   ]}
                 >
@@ -142,6 +141,9 @@ const ParentDiscipline = () => {
               {incident.canRespond && (
                 <Button
                   mode="contained"
+                  icon={({ size, color }) => (
+                    <MaterialCommunityIcons name="reply" size={size} color={color} />
+                  )}
                   onPress={() => {
                     setSelectedIncident(incident);
                     setResponseModalVisible(true);
